@@ -2,8 +2,11 @@ package nl.rammelkast.SpawnJoin;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.Location;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
+import org.bukkit.configuration.ConfigurationSection;
+import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import nl.rammelkast.SpawnJoin.config.FileManager;
@@ -32,9 +35,17 @@ public class SpawnJoin extends JavaPlugin {
 				showIndex(sender);
 			}else {
 				if (args[0].equalsIgnoreCase("set")) {
-					
+					ConfigurationSection section =  this.fileManager.getSpawnsConfig().createSection(((Player)sender).getWorld().getName());
+					section.set("X", ((Player)sender).getLocation().getX());
+					section.set("Y", ((Player)sender).getLocation().getY());
+					section.set("Z", ((Player)sender).getLocation().getZ());
+					section.set("Yaw", ((Player)sender).getLocation().getYaw());
+					section.set("Pitch", ((Player)sender).getLocation().getPitch());
 				}else if (args[0].equalsIgnoreCase("tp")) {
-					
+					ConfigurationSection section =  getFileManager().getSpawnsConfig().getConfigurationSection(((Player)sender).getWorld().getName());
+					if (section == null)
+						return true;
+					((Player)sender).teleport(new Location(((Player)sender).getWorld(), (double)section.get("X"), (double)section.get("Y"), (double)section.get("Z"), (float)section.get("Yaw"), (float)section.get("Pitch")));
 				}else if (args[0].equalsIgnoreCase("rl")) {
 					try {
 						this.getFileManager().shutDown();
