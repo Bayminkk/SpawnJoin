@@ -22,7 +22,7 @@ public class EventManager implements Listener {
 		ConfigurationSection section =  plugin.getFileManager().getSpawnsConfig().getConfigurationSection(e.getPlayer().getWorld().getName());
 		if (section == null)
 			return;
-		e.getPlayer().teleport(new Location(e.getPlayer().getWorld(), (double)section.get("X"), (double)section.get("Y"), (double)section.get("Z"), (float)section.get("Yaw"), (float)section.get("Pitch")));
+		e.getPlayer().teleport(new Location(e.getPlayer().getWorld(), (double)section.getDouble("X"), (double)section.getDouble("Y"), (double)section.getDouble("Z"), (float)section.getDouble("Yaw"), (float)section.getDouble("Pitch")));
 	}
 
 }

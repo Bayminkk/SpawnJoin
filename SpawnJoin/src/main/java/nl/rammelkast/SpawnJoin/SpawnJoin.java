@@ -45,7 +45,7 @@ public class SpawnJoin extends JavaPlugin {
 					ConfigurationSection section =  getFileManager().getSpawnsConfig().getConfigurationSection(((Player)sender).getWorld().getName());
 					if (section == null)
 						return true;
-					((Player)sender).teleport(new Location(((Player)sender).getWorld(), (double)section.get("X"), (double)section.get("Y"), (double)section.get("Z"), (float)section.get("Yaw"), (float)section.get("Pitch")));
+					((Player)sender).teleport(new Location(((Player)sender).getWorld(), section.getDouble("X"), (double)section.getDouble("Y"), (double)section.getDouble("Z"), (float)section.getDouble("Yaw"), (float)section.getDouble("Pitch")));
 				}else if (args[0].equalsIgnoreCase("rl")) {
 					try {
 						this.getFileManager().shutDown();
