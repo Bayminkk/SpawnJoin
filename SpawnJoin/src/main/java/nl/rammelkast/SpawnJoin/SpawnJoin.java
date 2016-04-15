@@ -1,5 +1,7 @@
 package nl.rammelkast.SpawnJoin;
 
+import java.io.IOException;
+
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
@@ -21,6 +23,12 @@ public class SpawnJoin extends JavaPlugin {
 	public void onEnable() {
 		this.fileManager = new FileManager(this);
 		Bukkit.getPluginManager().registerEvents(new EventManager(this), this);
+		
+		Metrics metrics;
+		try {
+			metrics = new Metrics(this);
+			metrics.start();
+		} catch (IOException e) {}
 	}
 	
 	@Override

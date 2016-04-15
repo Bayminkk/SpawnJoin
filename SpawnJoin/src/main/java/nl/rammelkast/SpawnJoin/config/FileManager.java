@@ -24,6 +24,8 @@ public class FileManager {
 	}
 
 	public void init() throws IOException {
+		if (!plugin.getDataFolder().exists())
+			plugin.getDataFolder().mkdir();
 		spawnsFile = new File(plugin.getDataFolder(), "spawns.yml");
 		if (!spawnsFile.exists())
 			spawnsFile.createNewFile();
