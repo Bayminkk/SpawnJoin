@@ -15,8 +15,8 @@ public class FileManager {
 	private FileConfiguration spawnsConfig;
 	
 	public FileManager(SpawnJoin pl) {
-		this.plugin = pl;
 		try {
+			this.plugin = pl;
 			init();
 		} catch (IOException e) {
 			e.printStackTrace();
