@@ -17,12 +17,17 @@ public class EventManager implements Listener {
 		this.plugin = spawnJoin;
 	}
 	
-	@EventHandler(priority=EventPriority.MONITOR, ignoreCancelled = true)
+	@EventHandler(priority=EventPriority.HIGHEST, ignoreCancelled = true)
 	public void onJoin(PlayerJoinEvent e) {
 		ConfigurationSection section =  plugin.getFileManager().getSpawnsConfig().getConfigurationSection(e.getPlayer().getWorld().getName());
 		if (section == null)
 			return;
-		e.getPlayer().teleport(new Location(e.getPlayer().getWorld(), (double)section.getDouble("X"), (double)section.getDouble("Y"), (double)section.getDouble("Z"), (float)section.getDouble("Yaw"), (float)section.getDouble("Pitch")));
+		try {
+			e.getPlayer().teleport(new Location(e.getPlayer().getWorld(), (double)section.getDouble("X"), (double)section.getDouble("Y"), (double)section.getDouble("Z"), (float)section.getDouble("Yaw"), (float)section.getDouble("Pitch")));
+		}catch(Exception ex) {
+			if (e.getPlayer().isOp())
+				e.getPlayer().sendMessage("§cAn error occured with your SpawnJoin config!");
+		}
 	}
 
 }
